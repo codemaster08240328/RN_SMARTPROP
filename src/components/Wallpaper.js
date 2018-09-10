@@ -7,7 +7,7 @@ import bgSrc from '../../assets/wallpaper.png';
 export default class Wallpaper extends Component {
   render() {
     return (
-      <ImageBackground style={styles.picture} source={bgSrc}>
+      <ImageBackground style={styles.picture}>
         {this.props.children}
       </ImageBackground>
     );
@@ -19,6 +19,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    resizeMode: 'cover',
   },
 });

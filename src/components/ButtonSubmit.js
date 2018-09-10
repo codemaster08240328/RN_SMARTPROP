@@ -12,17 +12,23 @@ import {
 
 import {Icon} from 'react-native-elements';
 import xmlHandle from '../service/xmlRequest'; 
+import { connect } from 'react-redux';
+import{color} from '../settings/appconfig';
+import actions from '../redux/auth/action';
+
+
 
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const MARGIN = 40;
 
-export default class ButtonSubmit extends Component {
+class ButtonSubmit extends Component {
   constructor() {
     super();
 
     this.state = {
       isLoading: false,
+
     };
 
     this.buttonAnimated = new Animated.Value(0);
@@ -49,9 +55,13 @@ export default class ButtonSubmit extends Component {
       this.buttonAnimated.setValue(0);
       this.growAnimated.setValue(0);
     }, 2300);
+    param = {
+      'EMail':"habib.salhi@yandex.com",
+      'password_text':"MasterAdmin"
 
-  xmlHandle();
-
+    }
+    // this.props.dispatch(actions.login(param));
+    this.props.navigation.navigate("role");
   }
 
   _onGrow() {
@@ -104,7 +114,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#0671B8',
+    backgroundColor: color.dark_primary,
     height: MARGIN,
     borderRadius: 20,
     zIndex: 100,
@@ -114,11 +124,11 @@ const styles = StyleSheet.create({
     width: MARGIN,
     marginTop: -MARGIN,
     borderWidth: 1,
-    borderColor: '#0671B8',
+    borderColor: color.dark_primary,
     borderRadius: 100,
     alignSelf: 'center',
     zIndex: 99,
-    backgroundColor: '#0671B8',
+    backgroundColor: color.dark_primary
   },
   text: {
     color: 'white',
@@ -129,3 +139,11 @@ const styles = StyleSheet.create({
     height: 24,
   },
 });
+
+function mapStateToProps(state){
+  return{
+    state
+  }
+}
+
+export default connect(mapStateToProps)(ButtonSubmit);
