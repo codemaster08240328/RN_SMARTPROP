@@ -8,11 +8,18 @@ const REQUEST = {
 const TYPE = {
     createUpdateData_Open:"<_0:createUpdateData>",
     createUpdateData_Close:"</_0:createUpdateData>",
+    queryData_Open:"<_0:queryData>",
+    queryDate_Close:"</_0:queryData>"
+
 }
 const SERVICE = {
-    createUpdateUser : "wp-createUpdateUser"
+    createUpdateUser : "wp-createUpdateUser",
+    queryUser: "wp-queryUsers",
+}
+const API = {
+    base:"http://alsalehi.no-ip.org:50012/ADInterface/services/ModelADService"
 }
 
 export {
-    REQUEST, TYPE, SERVICE
+    REQUEST, TYPE, SERVICE, API
 }

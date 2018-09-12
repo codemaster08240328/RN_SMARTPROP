@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   text: {
-    color: 'white',
+    color: '#7d7d80',
     backgroundColor: 'transparent',
   },
 });

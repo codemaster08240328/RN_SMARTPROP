@@ -1,4 +1,5 @@
 import {REQUEST, TYPE, SERVICE} from '../settings/general-setting'
+var DOMParser = require('xmldom').DOMParser
 // class Service{
 //     xmlHandle = async (param, service, type) =>{
 //         console.log(param)
@@ -44,7 +45,7 @@ import {REQUEST, TYPE, SERVICE} from '../settings/general-setting'
 
 // export default new Service();
 
-export default function xmlHandle(param, service, type){
+export default function xmlHandle(param, service, type, cb){
     console.log(param)
     data_row = "<_0:DataRow>";
     for(var key in param){
@@ -74,8 +75,11 @@ export default function xmlHandle(param, service, type){
 
     xhr.addEventListener("readystatechange", function () {
     if (this.readyState === 4) {
-        console.log("success",this.responseText);
-        return this.responseText;
+        var parser = new DOMParser()
+        var doc = parser.parseFromString(this.responseText, "text/xml").documentElement
+        console.log(doc);
+        cb(doc);        
+        
     }else{
         console.log("error");
     }

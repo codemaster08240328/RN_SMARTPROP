@@ -31,6 +31,7 @@ export default class Form extends Component {
       : this.setState({showPass: true, press: false});
   }
 
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -40,6 +41,7 @@ export default class Form extends Component {
           autoCapitalize={'none'}
           returnKeyType={'done'}
           autoCorrect={false}
+          value = {this.props.email}
         />
         <UserInput
           source={passwordImg}
@@ -48,6 +50,7 @@ export default class Form extends Component {
           returnKeyType={'done'}
           autoCapitalize={'none'}
           autoCorrect={false}
+          value = {this.props.pwd}
         />
         <TouchableOpacity
           activeOpacity={0.7}
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
   iconEye: {
     width: 25,
     height: 25,
-    tintColor: 'rgba(0,0,0,0.2)',
-    marginTop:8.5
+    tintColor: '#7d7d80',
+    marginTop:7
   },
 });

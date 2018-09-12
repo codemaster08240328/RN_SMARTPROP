@@ -21,6 +21,8 @@ export default class RoleView extends Component {
         this.state = {
             slider1ActiveSlide:0
         }
+        this.itemChange = this.itemChange.bind(this);
+        this.getStarted = this.getStarted.bind(this);
     }
 
     _renderItemWithParallax ({item, index}, parallaxProps) {
@@ -32,6 +34,15 @@ export default class RoleView extends Component {
               parallaxProps={parallaxProps}
             />
         );
+    }
+
+    itemChange(index){
+        console.log(index);
+        this.setState({ slider1ActiveSlide: index })
+    }
+
+    getStarted(){
+        this.props.navigation.navigate("menu");
     }
 
     render(){
@@ -62,7 +73,7 @@ export default class RoleView extends Component {
                             autoplay={false}
                             autoplayDelay={500}
                             autoplayInterval={3000}
-                            onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
+                            onSnapToItem={(index) => this.itemChange(index) }
                             />
                     </View>
                     <View style = {styles.containerBottom}>
@@ -72,6 +83,7 @@ export default class RoleView extends Component {
                                 borderRadius:5,
                                 marginBottom:20
                             }}
+                            onPress = {this.getStarted}
                             title = "GET STARTED"
                         />
                         <Hyperlink 

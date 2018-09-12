@@ -11,10 +11,8 @@ import {
 } from 'react-native';
 
 import {Icon} from 'react-native-elements';
-import xmlHandle from '../service/xmlRequest'; 
 import { connect } from 'react-redux';
 import{color} from '../settings/appconfig';
-import actions from '../redux/auth/action';
 
 
 
@@ -27,8 +25,7 @@ class ButtonSubmit extends Component {
     super();
 
     this.state = {
-      isLoading: false,
-
+      isLoading: false
     };
 
     this.buttonAnimated = new Animated.Value(0);
@@ -46,22 +43,29 @@ class ButtonSubmit extends Component {
       easing: Easing.linear,
     }).start();
 
-    setTimeout(() => {
-      this._onGrow();
-    }, 2000);
+    // setTimeout(() => {
+    //   this._onGrow();
+    // }, 2000);
 
-    setTimeout(() => {
-      this.setState({isLoading: false});
-      this.buttonAnimated.setValue(0);
-      this.growAnimated.setValue(0);
-    }, 2300);
-    param = {
-      'EMail':"habib.salhi@yandex.com",
-      'password_text':"MasterAdmin"
+    // setTimeout(() => {
+    //   this.setState({isLoading: false});
+    //   this.buttonAnimated.setValue(0);
+    //   this.growAnimated.setValue(0);
+    // }, 2300);
+    this.props.onPressed();
 
+    // this.props.navigation.navigate("role");
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.auth.loading == false){
+      setTimeout(()=>{this._onGrow();},100);
+      setTimeout(()=>{
+        this.setState({isLoading: false});
+        this.buttonAnimated.setValue(0);
+        this.growAnimated.setValue(0);
+      },400)
     }
-    // this.props.dispatch(actions.login(param));
-    this.props.navigation.navigate("role");
   }
 
   _onGrow() {
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return{
-    state
+    auth:state.authReducer
   }
 }
 
