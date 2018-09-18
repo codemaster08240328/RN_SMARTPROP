@@ -9,6 +9,9 @@ import avatar from '../../../assets/avatar.png';
 import { colors } from '../auth/components/style';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
+import actions from '../../redux/image/action';
+import Spinner from 'react-native-loading-spinner-overlay';
+
 
 class MenuView extends Component{
 
@@ -17,54 +20,59 @@ class MenuView extends Component{
         this.state={
 
         }
-        this._renderItem = this._renderItem.bind(this)
-    }
-
-    _renderItem(item){
-        return(
-            <View style = {{flex:1, flexDirection:'row', padding:20, backgroundColor:'green'}}>
-                <View style = {{flex:3, backgroundColor:"red", height:50}}>
-                    <Icon
-                        type = {item.title}
-                        name = {item.name}
-                        size = {55}
-                        color = 'blue'
-                    />
-                </View>
-                <View style = {{flex:10, height:50, justifyContent:'center'}}>
-                    <Text style = {{fontSize:20}}>{item.title}</Text>
-                    <Text style = {{fontSize:15}}>{item.content}</Text>
-                </View>                
-            </View>
-        )
     }
 
     render(){
         return(
             <View style = {styles.container}>
+                <Spinner visible={this.props.imageReducer.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
                 <View style = {styles.header}>
-                    <View style = {{flex:8}}></View>
+                    <View style={{flex:1, justifyContent:"center"}}>
+                        <TouchableOpacity onPress={()=>this.props.backBtn()}>
+                            <Icon type = 'entypo' name = 'chevron-left' color = 'white' size ={25}/>    
+                        </TouchableOpacity>
+                    </View>
+                    <View style = {{flex:2}}></View>
+                    <View style = {{flex:5,justifyContent:"center", alignItems:'center'}}>
+                        <Text style = {{color:'white', fontSize:25, fontWeight:'bold'}}>Menu</Text>
+                    </View>
                     <View style = {{flex:1, justifyContent:'center', alignItems:'flex-end'}}>
-                        <Icon
+                        {/* <Icon
                             type = 'ionicon'
                             name = 'ios-notifications-outline'
                             color = {color.font}
                             size = {25}
-                        />
+                        /> */}
                     </View>
                     <View style = {{flex:2, justifyContent:'center', alignItems:'center'}}>
-                        <Avatar
+                        {/* <Avatar
                             size="small"
                             rounded
-                            source={avatar}
+                            source={(!this.props.imageReducer.image||this.props.imageReducer.image.BinaryData=="")?avatar:{uri:`data:image/gif;base64,${this.props.imageReducer.image.BinaryData}`}}
                             onPress={() => console.log("Works!")}
                             activeOpacity={0.7}
-                            />
+                            /> */}
                     </View>
                 </View>
                 <View style = {styles.body}>
                     <View style = {{height:210}}>
-                        <TouchableOpacity style = {{flex:1}} onPress = {()=>{this.props.navigation.navigate("profile")}}>
+                        <TouchableOpacity style = {{flex:1}} onPress = {()=>{this.props.onItemSelected("dashboard")}}>
+                            <View style = {{flex:1, flexDirection:'row', padding:10}}>
+                                <View style = {{flex:3, height:50}}>
+                                    <Icon
+                                        type = 'entypo'
+                                        name = 'home'
+                                        size = {50}
+                                        color = {color.dark_primary}
+                                    />
+                                </View>
+                                <View style = {{flex:10, height:50, justifyContent:'center'}}>
+                                    <Text style = {{fontSize:18, color:color.font}}>DashBoard</Text>
+                                    <Text style = {{fontSize:13, color:color.font}}>Request, Fav Request, Activity ...</Text>
+                                </View>                
+                            </View>
+                        </TouchableOpacity>
+                        {/* <TouchableOpacity style = {{flex:1}} onPress = {()=>{this.props.onItemSelected("profile")}}>
                             <View style = {{flex:1, flexDirection:'row', padding:10}}>
                                 <View style = {{flex:3, height:50}}>
                                     <Icon
@@ -79,8 +87,8 @@ class MenuView extends Component{
                                     <Text style = {{fontSize:13, color:color.font}}>Name, Email, Phone Number ...</Text>
                                 </View>                
                             </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {{flex:1}}>
+                        </TouchableOpacity> */}
+                        <TouchableOpacity style = {{flex:1}} onPress = {()=>{this.props.onItemSelected("unit")}}>
                             <View style = {{flex:1, flexDirection:'row', padding:10}}>
                                 <View style = {{flex:3,  height:50}}>
                                     <Icon
@@ -124,6 +132,7 @@ class MenuView extends Component{
 const styles = StyleSheet.create({
     container:{
         flex:1,
+        width:DEVICE_WIDTH
     },
     header:{
         flex:1,
@@ -140,7 +149,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return{
-        state
+        user:state.userReducer.user,
+        imageReducer:state.imageReducer
     }
 }
 

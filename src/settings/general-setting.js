@@ -9,17 +9,31 @@ const TYPE = {
     createUpdateData_Open:"<_0:createUpdateData>",
     createUpdateData_Close:"</_0:createUpdateData>",
     queryData_Open:"<_0:queryData>",
-    queryDate_Close:"</_0:queryData>"
+    queryDate_Close:"</_0:queryData>",
+
 
 }
 const SERVICE = {
     createUpdateUser : "wp-createUpdateUser",
     queryUser: "wp-queryUsers",
+    queryImage:"queryImage",
+    login:'UserLogin-plainText',
+    updateImage:'createUpdateImage'
+    
 }
+
+const VERIFY = {
+    local:'en',
+    via:'sms',
+    code_length:4,
+    app_key:"FSkYO6gbC1B2IhV3sq6naK0kDune97Gh"
+}
+
 const API = {
-    base:"http://alsalehi.no-ip.org:50012/ADInterface/services/ModelADService"
+    base:"http://alsalehi.no-ip.org:50012/ADInterface/services/ModelADService",
+    verify:"https://api.authy.com/protected/json/phones/verification"
 }
 
 export {
-    REQUEST, TYPE, SERVICE, API
+    REQUEST, TYPE, SERVICE, API, VERIFY
 }

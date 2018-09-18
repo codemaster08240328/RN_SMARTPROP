@@ -1,10 +1,21 @@
-import {API} from '../settings/general-setting';
+import {API, VERIFY} from '../settings/general-setting';
+
 const base = (method, path, data) => {
-  console.log('data', data)
   return fetch(`${API.base}${path}`, {
     method: method,
     body: data ? data : undefined 
   }).catch(error => ({ error: "Server Error" }))
+}
+const headers = new Headers();
+headers.append('X-Authy-API-Key', VERIFY.app_key);
+
+const base_verify = (method, path, data)=>{
+  console.log(data, headers);
+  return fetch(`${API.verify}${path}`,{
+    method:method,
+    body:data ? data : undefined,
+    headers:headers
+  });
 }
 
 class SuperFetch {
@@ -23,6 +34,14 @@ class SuperFetch {
   delete = (path) =>{
     return base('delete',path)
   }
+  get_ = path => {
+    return base_verify("get", path)
+  }
+
+  post_ = (path, data) => {
+    return base_verify("post", path, data)
+  }
+  
 }
 
 export default new SuperFetch()

@@ -6,6 +6,7 @@ import ButtonSubmit from '../../components/ButtonSubmit';
 import SignupSection from '../../components/SignupSection';
 import {connect }from 'react-redux';
 import actions from '../../redux/auth/action';
+import{getCurrentTimeStamp} from '../../helpers/utility';
 
 
 import Dimensions from 'Dimensions';
@@ -27,8 +28,8 @@ class LoginScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      email:"habib.salhi@yandex.com",
-      password:"MasterAdmin",
+      email:"nicolaiivan@outlook.com",
+      password:"developer",
       showPass: true,
       press: false,
     };
@@ -44,11 +45,13 @@ class LoginScreen extends Component {
       : this.setState({showPass: true, press: false});
   }
 
+
+
   submit(){
     param = {
+      'Updated':getCurrentTimeStamp(),
       'EMail':this.state.email,
       'password_text':this.state.password
-
     }
     this.props.dispatch(actions.login(param));
   }

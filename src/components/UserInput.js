@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingLeft: 45,
     borderRadius: 20,
-    color: color.font,
+    color: "#000",
     borderColor:color.font,
   },
   inputWrapper: {

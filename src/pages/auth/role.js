@@ -4,17 +4,20 @@ import {Button} from 'react-native-elements';
 import Carousel from 'react-native-snap-carousel';
 import styles from './components/style';
 import { sliderWidth, itemWidth } from './components/style_entry';
+import {connect} from 'react-redux';
 
 import { ENTRIES2 } from './components/entry';
 import SliderEntry from './components/SliderEntry';
 import { color } from '../../settings/appconfig';
 import Hyperlink from 'react-native-hyperlink';
+import Spinner from 'react-native-loading-spinner-overlay';
+import actions from '../../redux/profile/action';
 
 
 const SLIDER_1_FIRST_ITEM = 0;
 
 
-export default class RoleView extends Component {
+class RoleView extends Component {
 
     constructor(props){
         super(props);
@@ -23,6 +26,13 @@ export default class RoleView extends Component {
         }
         this.itemChange = this.itemChange.bind(this);
         this.getStarted = this.getStarted.bind(this);
+    }
+
+    componentDidMount(){
+        data = {
+            EMail:this.props.auth.EMail
+        }
+        this.props.dispatch(actions.getUser(data))
     }
 
     _renderItemWithParallax ({item, index}, parallaxProps) {
@@ -42,12 +52,13 @@ export default class RoleView extends Component {
     }
 
     getStarted(){
-        this.props.navigation.navigate("menu");
+        this.props.navigation.navigate("dashboard");
     }
 
     render(){
         return(
             <SafeAreaView style={styles.safeArea}>
+                <Spinner visible={this.props.userReducer.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
                 <View style = {styles.header}>
                     <Text style={{color:'white',fontSize:20}}>USER ROLE</Text>
                 </View>
@@ -81,7 +92,8 @@ export default class RoleView extends Component {
                             buttonStyle = {{
                                 backgroundColor:color.dark_primary,
                                 borderRadius:5,
-                                marginBottom:20
+                                marginBottom:20,
+                                width: itemWidth - 20
                             }}
                             onPress = {this.getStarted}
                             title = "GET STARTED"
@@ -92,7 +104,7 @@ export default class RoleView extends Component {
                             // }}
                             linkStyle={ {flex:7, color: '#627AF7', fontSize: 15 } }
                             linkText={ url => url === 'https://github.com/obipawan/hyperlink' ? 'login' : url }>
-                            <Text style={ { fontSize: 15 } }>
+                            <Text style={ { fontSize: 15, color:color.font } }>
                                 Want to https://github.com/obipawan/hyperlink with another account.
                             </Text>
                         </Hyperlink>
@@ -105,3 +117,12 @@ export default class RoleView extends Component {
 
 
 }
+
+function mapStateToProps(state){
+    return{
+        auth:state.authReducer.auth,
+        userReducer:state.userReducer
+    }
+}
+
+export default connect(mapStateToProps)(RoleView)
