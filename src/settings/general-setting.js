@@ -15,10 +15,12 @@ const TYPE = {
 }
 const SERVICE = {
     createUpdateUser : "wp-createUpdateUser",
-    queryUser: "wp-queryUsers",
-    queryImage:"queryImage",
-    login:'UserLogin-plainText',
-    updateImage:'createUpdateImage'
+    queryUser : "wp-queryUsers",
+    queryImage : "queryImage",
+    login : 'UserLogin-plainText',
+    updateImage : 'createUpdateImage',
+    queryReferal : 'queryReferal',
+    loveUnit : 'wp-lov-unit' 
     
 }
 

@@ -13,7 +13,6 @@ import Dimensions from 'Dimensions';
 import {
   StyleSheet,
   KeyboardAvoidingView,
-
   TouchableOpacity,
   Image,
 } from 'react-native';
@@ -28,8 +27,8 @@ class LoginScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      email:"nicolaiivan@outlook.com",
-      password:"developer",
+      email:"habib.salhi@yandex.com",
+      password:"MasterAdmin",
       showPass: true,
       press: false,
     };

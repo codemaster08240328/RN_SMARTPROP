@@ -1,12 +1,13 @@
-import React, {Component} from 'react'
-import {StyleSheet, View, Text, Image, TouchableOpacity, FlatList } from 'react-native'
+import React, { Component } from 'react'
+import { StyleSheet, View, Text, Image, TouchableOpacity, FlatList } from 'react-native'
 import { Icon } from 'react-native-elements'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { color } from '../../settings/appconfig';
 import MenuView from '../menu'
 import Spinner from 'react-native-loading-spinner-overlay';
 import SideMenu from 'react-native-side-menu';
 import Dimensions from 'Dimensions';
+import actions from '../../redux/unit/action';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
@@ -17,10 +18,18 @@ class UnitView extends Component{
         super(props);
         this.state = {
             isOpen:false,
-            data : [{Name:'name1', C_Activity_ID:'Activity_ID', prop_block:"prop_block", XX_Property_ID:'prop_id'},{Name:'name1', C_Activity_ID:'Activity_ID', prop_block:"prop_block", XX_Property_ID:'prop_id'},{Name:'name1', C_Activity_ID:'Activity_ID', prop_block:"prop_block", XX_Property_ID:'prop_id'}]
+            data : [{Name:'name1', C_Activity_ID:'Activity_ID', prop_block:"prop_block", XX_Property_ID:'prop_id', },{Name:'name1', C_Activity_ID:'Activity_ID', prop_block:"prop_block", XX_Property_ID:'prop_id'},{Name:'name1', C_Activity_ID:'Activity_ID', prop_block:"prop_block", XX_Property_ID:'prop_id'}]
         }
         this.toggleSideMenu = this.toggleSideMenu.bind(this)
         this.onMenuItemSelected = this.onMenuItemSelected.bind(this)
+    }
+
+    componentDidMount(){
+        const data = {
+            refereduser_ID:'1000959',//this.props.user.AD_User_ID,
+            AD_Table_ID:'1000015',
+        }
+        this.props.dispatch(actions.getUnit(data));
     }
 
     _keyExtractor = (item, index) => item.id;
@@ -32,14 +41,17 @@ class UnitView extends Component{
         });
         this.props.navigation.navigate(item);
     }
+
     updateMenuState(isOpen) {
         this.setState({ isOpen });
     }
+
     toggleSideMenu () {
         this.setState({
           isOpen: !this.state.isOpen
         })
     }
+
     render(){
         const menu = <MenuView onItemSelected={this.onMenuItemSelected} {...this.props} backBtn = {()=>this.setState({isOpen:false})}/>;
 
@@ -79,19 +91,37 @@ class UnitView extends Component{
                     </View>
                     <View style = {styles.body}>
                         <FlatList
-                            data = {this.state.data}
+                            data = {this.props.unit}
                             extraData = {this.state}
                             keyExtractor = {this._keyExtractor}
                             renderItem = {({item})=>
-                            <View style = {{paddingHorizontal:10, paddingVertical:5, backgroundColor:'red', height:50}}>
-                                <View style = {{flexDirection:"row", justifyContent:'space-between', flex:1}}>
-                                    <Text style = {{backgroundColor:'red', height:20, width:20}}>{item.Name}</Text><Text>...</Text>
+                            <View style = {{
+                                    paddingHorizontal:10,
+                                    paddingVertical:5, 
+                                    height:80, 
+                                    marginTop:10,
+                                    borderRadius:5,
+                                    borderWidth:0.5,
+                                    borderColor:'#d5d5dc',
+                                    backgroundColor:'#e6e6ed'
+                                }}>
+                                <View style = {{flexDirection:"row", justifyContent:'space-between', height:'40%'}}>
+                                    <Text style={{fontSize:20}}>Name : {item.Name}</Text>
+                                    <TouchableOpacity>
+                                        <Icon
+                                            size = {20}
+                                            type = 'entypo'
+                                            name = 'dots-three-horizontal'
+                                        />  
+                                    </TouchableOpacity>
                                 </View>
-                                <View style = {{flexDirection:"row", justifyContent:'space-between'}}>
-                                    <Text>{item.Record_ID}</Text><Text>{item.prop_block}</Text>
+                                <View style = {{flexDirection:"row", justifyContent:'space-between', height:'30%'}}>
+                                    <Text>Record ID : {item.Record_ID}</Text>
+                                    <Text>Prop Block : {item.prop_block}</Text>
                                 </View>
-                                <View style = {{flexDirection:"row", justifyContent:'space-between'}}>
-                                    <Text>{item.XX_Property_ID}</Text><Text>{item.C_Activity_ID}</Text>
+                                <View style = {{flexDirection:"row", justifyContent:'space-between', height:'30%'}}>
+                                    <Text>Property Name : {item.XX_Property_ID}</Text>
+                                    <Text>Activity ID : {item.C_Activity_ID}</Text>
                                 </View>
                             </View>}
                         />
@@ -104,7 +134,9 @@ class UnitView extends Component{
 
 function mapStateToProps(state){
     return{
-        state:state
+        user:state.userReducer.user,
+        unit:state.unitReducer.unit,
+        unitReducer:state.unitReducer
     }
 }
 
@@ -123,7 +155,8 @@ const styles = StyleSheet.create({
     },
     body:{
         flex:11,
-        backgroundColor:'#fff'
+        backgroundColor:'#fff',
+        paddingHorizontal:10
     }
 });
 
