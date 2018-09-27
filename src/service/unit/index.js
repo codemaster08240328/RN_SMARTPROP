@@ -150,32 +150,32 @@ class UnitHelper {
   
 
     handleDocCategory = (response) => {
-    var parser = new DOMParser()
-    var doc = parser.parseFromString(response, 'text/xml').documentElement
-    var listNode = doc.getElementsByTagName("DataRow");
-    var count = doc.getElementsByTagName("RowCount")[0].firstChild.data;
-    if(count!=0){
-      let result=[];
-      for (i=0;i<listNode.length;i++){
-        val = listNode[i].getElementsByTagName('field');
-        const docID = val[0].getElementsByTagName('val');
-        const value = val[1].getElementsByTagName('val');
-        const valueLevel = val[2].getElementsByTagName('val');
+      var parser = new DOMParser()
+      var doc = parser.parseFromString(response, 'text/xml').documentElement
+      var listNode = doc.getElementsByTagName("DataRow");
+      var count = doc.getElementsByTagName("RowCount")[0].firstChild.data;
+      if(count!=0){
+        let result=[];
+        for (i=0;i<listNode.length;i++){
+          val = listNode[i].getElementsByTagName('field');
+          const docID = val[0].getElementsByTagName('val');
+          const value = val[1].getElementsByTagName('val');
+          const valueLevel = val[2].getElementsByTagName('val');
 
-        result[i] = {
-          'XX_Lov_Doc_Category_ID' : docID[0].firstChild.data,
-          'Value' : value[0].firstChild.data,
-          'value_level01' : valueLevel[0].firstChild.data,
-          label: value[0].firstChild.data + " - " + valueLevel[0].firstChild.data,
-          value: i
-        };
+          result[i] = {
+            'XX_Lov_Doc_Category_ID' : docID[0].firstChild.data,
+            'Value' : value[0].firstChild.data,
+            'value_level01' : valueLevel[0].firstChild.data,
+            label: value[0].firstChild.data + " - " + valueLevel[0].firstChild.data,
+            value: i
+          };
+        }
+        console.log(result);
+        return result;
+      }else{
+        return [];
       }
-      console.log(result);
-      return result;
-    }else{
-      return [];
     }
-  }
 
   addUnitDoc = async param => {
     const type = {
@@ -189,7 +189,9 @@ class UnitHelper {
         .then(resp=>resp.text())
         .then((response)=>{
             console.log('response',response);
-            return this.handleDocCategory(response);
+            alert('success');
+            return {result:'success'}
+            // return this.handleDocCategory(response);
         });
   }
 

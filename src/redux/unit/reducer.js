@@ -62,6 +62,18 @@ export function unitReducer(state = initState, action={}) {
         loading: false,
         message: 'error'
       }
+    case actions.ADD_DOC_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        message: 'success'
+      }
+    case actions.ADD_DOC_ERROR:
+      return{
+        ...state,
+        loading: false,
+        message: 'error'
+      }
     default:
       return state
   }

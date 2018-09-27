@@ -130,6 +130,10 @@ class UnitView extends Component{
                                 <Icon type="entypo" name="add-to-list" color="#EB6F6F" size={15}/>
                                 <Text style={{color: '#EB6F6F', marginLeft:10}}>ADD NEW UNIT DOCUMENT</Text>
                             </MenuOption>
+                            <MenuOption value="addUnitDoc" style={{flex:1,flexDirection:'row', borderBottomWidth:1,borderColor:'#727272',padding:10, borderRightWidth:1, borderLeftWidth:1}}>
+                                <Icon type="entypo" name="add-to-list" color="#EB6F6F" size={15}/>
+                                <Text style={{color: '#EB6F6F', marginLeft:10}}>VIEW LEDGER</Text>
+                            </MenuOption>
                         </MenuOptions>
                     </Menu>
                 </View>
@@ -198,7 +202,7 @@ class UnitView extends Component{
                                 <TouchableOpacity onPress = {this.toggleSideMenu}>
                                     <Icon
                                         type = 'entypo'
-                                        name = 'dots-three-vertical'
+                                        name = 'menu'
                                         size = {25}
                                         color = {color.dark_primary}
                                     />    

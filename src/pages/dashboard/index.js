@@ -72,7 +72,7 @@ class DashBoardView extends Component {
                         <TouchableOpacity onPress = {this.toggleSideMenu}>
                             <Icon
                                 type = 'entypo'
-                                name = 'dots-three-vertical'
+                                name = 'menu'
                                 size = {25}
                                 color = {color.dark_primary}
                             />    

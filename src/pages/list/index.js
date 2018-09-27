@@ -64,6 +64,7 @@ class ListView extends Component {
             <Text style = {styles.title}>Name : </Text>
             <Text>{item.Name}</Text>
           </View>
+          
           <View style = {styles.odd_row}>
             <Text style = {styles.title}>FurnitureStatus : </Text>
             <Text>{item.XX_Lov_FurnitureStatus_ID}</Text>
@@ -133,7 +134,7 @@ class ListView extends Component {
             <TouchableOpacity onPress={this.toggleSideMenu}>
                 <Icon
                     type='entypo'
-                    name='dots-three-vertical'
+                    name='menu'
                     size={25}
                     color={color.dark_primary}
                 />    

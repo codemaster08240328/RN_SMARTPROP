@@ -22,7 +22,10 @@ class AddUnitDoc extends Component {
   
     this.state = {
        title: '',
-       msg: ''
+       msg: '',
+       Record_ID:'',
+       XX_Lov_Doc_Category_ID:'',
+       BinaryData:''
     }
     this.fileUpload = this.fileUpload.bind(this)
     this.addRequest = this.addRequest.bind(this)
@@ -30,6 +33,7 @@ class AddUnitDoc extends Component {
   
   componentDidMount() {
     const data = {}
+    this.setState({Record_ID: this.props.navigation.getParam('Record_ID')})
     this.props.dispatch(actions.getDocCategory(data))
   }
 
@@ -43,9 +47,31 @@ class AddUnitDoc extends Component {
   } 
   
   addRequest(){
-    const data = {
-      
+    if(this.state.title==''||this.state.msg==''){
+      alert('fill in all fields.');
+      return
     }
+    if(this.state.BinaryData!='')
+      data = {
+        AD_Org_ID: constants.AD_Org_ID,
+        AD_Table_ID: constants.tableId,
+        Record_ID: this.state.Record_ID,
+        XX_Lov_Doc_Category_ID: this.state.XX_Lov_Doc_Category_ID,
+        Title: '',
+        BinaryData:this.state.BinaryData,
+        TextMsg:''
+      }
+    else
+      data = {
+        AD_Org_ID: constants.AD_Org_ID,
+        AD_Table_ID: constants.tableId,
+        Record_ID: this.state.Record_ID,
+        XX_Lov_Doc_Category_ID: this.state.XX_Lov_Doc_Category_ID,
+        Title: this.state.title,
+        TextMsg:this.state.msg
+      }
+    console.log(data);
+    this.props.dispatch(actions.addUnitDoc(data))
   }
 
   render() {
@@ -80,7 +106,7 @@ class AddUnitDoc extends Component {
               items={this.props.docCateg}
               onValueChange={(value) => {
                   this.setState({
-                      selected: value,
+                      XX_Lov_Doc_Category_ID: this.props.docCateg[value].XX_Lov_Doc_Category_ID,
                   });
               }}
               style={{...styles}}
@@ -92,7 +118,7 @@ class AddUnitDoc extends Component {
             <TextInput
               placeholder = "title"
               style = {styles.inputIOS}
-              onChangeText = {(summary)=>this.setState({summary})}
+              onChangeText = {(title)=>this.setState({title})}
             />
           </View>
           <View style = {{marginTop: 10}}>
@@ -124,7 +150,7 @@ class AddUnitDoc extends Component {
               multiline
               placeholder = "message here"
               style = {[styles.inputIOS, {height: 100}]}
-              onChangeText={(result)=>this.setState({result})}
+              onChangeText={(msg)=>this.setState({msg})}
             />
           </View>
           <View style = {{marginTop: 10}}>
