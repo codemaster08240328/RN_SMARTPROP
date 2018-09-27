@@ -28,3 +28,11 @@ export function getCurrentTimeStamp() {
     var todayDate = new Date().toISOString().slice(0,19);
     return todayDate.split('T')[0] + " " + todayDate.split('T')[1]
 }
+
+export function convertTimeFormat(time){
+    let date = time.split(' ')[0];
+    let year = date.split('-')[0];
+    let month = date.split('-')[1];
+    let day = date.split('-')[2];
+    return day + '-' + month + '-' + year
+}

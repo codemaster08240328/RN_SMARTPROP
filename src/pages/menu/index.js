@@ -1,20 +1,12 @@
-import React, {Component} from 'react';
-import { View, StyleSheet, FlatList, Text, TouchableOpacity} from 'react-native';
-import { Avatar, Icon } from 'react-native-elements';
-
+import React, { Component } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { Icon } from 'react-native-elements';
 import {connect} from 'react-redux';
 import Dimensions from 'Dimensions';
 import { color } from '../../settings/appconfig';
-import avatar from '../../../assets/avatar.png';
-import { colors } from '../auth/components/style';
 const DEVICE_WIDTH = Dimensions.get('window').width;
-const DEVICE_HEIGHT = Dimensions.get('window').height;
-import actions from '../../redux/image/action';
-import Spinner from 'react-native-loading-spinner-overlay';
-
-
 class MenuView extends Component{
-
+    
     constructor(props){
         super(props);
         this.state={
@@ -25,7 +17,6 @@ class MenuView extends Component{
     render(){
         return(
             <View style = {styles.container}>
-                <Spinner visible={this.props.imageReducer.loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
                 <View style = {styles.header}>
                     <View style={{flex:1, justifyContent:"center"}}>
                         <TouchableOpacity onPress={()=>this.props.backBtn()}>
@@ -55,16 +46,18 @@ class MenuView extends Component{
                     </View>
                 </View>
                 <View style = {styles.body}>
-                    <View style = {{height:210}}>
-                        <TouchableOpacity style = {{flex:1}} onPress = {()=>{this.props.onItemSelected("dashboard")}}>
+                    <View style = {{height:280}}>
+                        <TouchableOpacity 
+                            style = {{flex:1}} 
+                            onPress = {()=>{this.props.onItemSelected("dashboard")}}>
+
                             <View style = {{flex:1, flexDirection:'row', padding:10}}>
                                 <View style = {{flex:3, height:50}}>
                                     <Icon
                                         type = 'entypo'
                                         name = 'home'
                                         size = {50}
-                                        color = {color.dark_primary}
-                                    />
+                                        color = {color.dark_primary}/>
                                 </View>
                                 <View style = {{flex:10, height:50, justifyContent:'center'}}>
                                     <Text style = {{fontSize:18, color:color.font}}>DashBoard</Text>
@@ -72,23 +65,11 @@ class MenuView extends Component{
                                 </View>                
                             </View>
                         </TouchableOpacity>
-                        {/* <TouchableOpacity style = {{flex:1}} onPress = {()=>{this.props.onItemSelected("profile")}}>
-                            <View style = {{flex:1, flexDirection:'row', padding:10}}>
-                                <View style = {{flex:3, height:50}}>
-                                    <Icon
-                                        type = 'evilicon'
-                                        name = 'user'
-                                        size = {65}
-                                        color = {color.dark_primary}
-                                    />
-                                </View>
-                                <View style = {{flex:10, height:50, justifyContent:'center'}}>
-                                    <Text style = {{fontSize:18, color:color.font}}>My Profile</Text>
-                                    <Text style = {{fontSize:13, color:color.font}}>Name, Email, Phone Number ...</Text>
-                                </View>                
-                            </View>
-                        </TouchableOpacity> */}
-                        <TouchableOpacity style = {{flex:1}} onPress = {()=>{this.props.onItemSelected("unit")}}>
+
+                        <TouchableOpacity 
+                            style = {{flex:1}} 
+                            onPress = {()=>{this.props.onItemSelected("unit")}}>
+
                             <View style = {{flex:1, flexDirection:'row', padding:10}}>
                                 <View style = {{flex:3,  height:50}}>
                                     <Icon
@@ -104,7 +85,11 @@ class MenuView extends Component{
                                 </View>                
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style = {{flex:1}}>
+
+                        <TouchableOpacity 
+                            style = {{flex:1}}
+                            onPress = {()=>{this.props.onItemSelected('list')}}
+                        >
                             <View style = {{flex:1, flexDirection:'row', padding:10}}>
                                 <View style = {{flex:3, height:50}}>
                                     <Icon
@@ -120,12 +105,29 @@ class MenuView extends Component{
                                 </View>                
                             </View>
                         </TouchableOpacity>
+
+                        <TouchableOpacity 
+                            style = {{flex:1}} 
+                            onPress = {()=>{this.props.onItemSelected("request")}}>
+                            
+                            <View style = {{flex:1, flexDirection:'row', padding:10}}>
+                                <View style = {{flex:3, height:50}}>
+                                    <Icon
+                                        type = 'entypo'
+                                        name = 'direction'
+                                        size = {48}
+                                        color = {color.dark_primary}/>
+                                </View>
+                                <View style = {{flex:10, height:50, justifyContent:'center'}}>
+                                    <Text style = {{fontSize:18, color:color.font}}>My Requests</Text>
+                                    <Text style = {{fontSize:13, color:color.font}}>add/update/edit ...</Text>
+                                </View>                
+                            </View>
+                        </TouchableOpacity>
                     </View>
-                    
                 </View>
             </View>
         )
-
     }
 }
 
@@ -139,8 +141,6 @@ const styles = StyleSheet.create({
         backgroundColor:color.light_primary,
         flexDirection:"row",
         paddingTop:15
-
-
     },
     body:{
         flex:12

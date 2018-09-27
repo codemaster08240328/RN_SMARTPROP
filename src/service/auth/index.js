@@ -36,9 +36,8 @@ class AuthHelper {
             }
         }
         var listNode = doc.getElementsByTagName("outputFields");
-        console.log('listNode',listNode);
         var val = listNode[0].getElementsByTagName("outputField");
-        if(val[0].getAttribute('value')=='Y'){
+        if(val[1].getAttribute('value')=='Y'){
             return {
                 success:"Login Success",
             }

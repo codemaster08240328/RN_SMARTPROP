@@ -20,7 +20,16 @@ const SERVICE = {
     login : 'UserLogin-plainText',
     updateImage : 'createUpdateImage',
     queryReferal : 'queryReferal',
-    loveUnit : 'wp-lov-unit' 
+    queryRequests : 'queryRequests',
+    loveUnit : 'wp-lov-unit',
+    queryDoc: 'queryDoc',
+    queryList: 'wp-queryLandlordListing',
+    requestType: 'lov-RequestType',
+    reqStatus: 'lov-RequestStatus',
+    lovActivity: 'lov-Activity',
+    updateRequest: 'createUpdateRequest',
+    lovDocCate: 'lov-DocCategory',
+    createUpdateDoc: 'createUpdateDoc'
     
 }
 
@@ -32,7 +41,8 @@ const VERIFY = {
 }
 
 const API = {
-    base:"http://alsalehi.no-ip.org:50012/ADInterface/services/ModelADService",
+    // base:"http://18.224.19.140:8080/ADInterface/services/ModelADService",
+    base: 'http://alsalehi.no-ip.org:50012/ADInterface/services/ModelADService',
     verify:"https://api.authy.com/protected/json/phones/verification"
 }
 
