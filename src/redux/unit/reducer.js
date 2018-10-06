@@ -1,6 +1,6 @@
 import actions from "./action"
 import Immutable from 'seamless-immutable';
-const initState = Immutable({ unitsuccess:null, unit:[], message:null, loading:null, doc:[], docCategory:[]})
+const initState = Immutable({ unitsuccess:null, unit:[], message:null, loading:null, doc:[], docCategory:[], ledger: null, property: []})
 export function unitReducer(state = initState, action={}) {
   switch (action.type) {
     case actions.UNIT_REQUEST: 
@@ -70,6 +70,36 @@ export function unitReducer(state = initState, action={}) {
       }
     case actions.ADD_DOC_ERROR:
       return{
+        ...state,
+        loading: false,
+        message: 'error'
+      }
+    case actions.UNIT_LEDGER_SUCCESS:
+      return{
+        ...state,
+        ledger:action.payload,
+        loading: false,
+
+      }
+    case actions.UNIT_LEDGER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        message: 'error'
+      }
+    case actions.LOV_PROP_GET: 
+      return {
+        ...state,
+        loading: true
+      }
+    case actions.PROP_GET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        property: action.payload,
+      }
+    case actions.PROP_GET_ERROR:
+      return {
         ...state,
         loading: false,
         message: 'error'

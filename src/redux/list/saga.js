@@ -14,13 +14,33 @@ export function* listRequest() {
       } else {
         yield put({ 
           type: actions.LIST_GET_ERROR,
-          payload:result.error
+          payload: result.error
         })
       }
     })
 }
+
+export function* AddNewList(){
+  yield takeEvery(actions.ADD_LIST, function*({payload}){
+    const param = Object.assign({}, payload)
+    const result = yield call(ListHelper.addList, param)
+    if(result && !result.error) {
+      yield put({
+        type: actions.ADD_SUCCESS,
+        payload: result
+      })
+    } else {
+      yield put({
+        type: actions.ADD_FAIL,
+        payload: result.error
+      })
+    }
+  })
+}
+
 export default function* listSaga() {
   yield all([
-    fork(listRequest)
+    fork(listRequest),
+    fork(AddNewList)
   ])
 }

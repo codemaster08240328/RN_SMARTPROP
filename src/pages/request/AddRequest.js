@@ -84,10 +84,7 @@ class AddRequest extends Component {
 
   
   componentWillReceiveProps(nextProps) {
-    if(nextProps.reqReducer.addmessage){
-      alert(nextProps.reqReducer.addmessage)
-    }
-    
+
     
   }
   

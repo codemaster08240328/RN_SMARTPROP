@@ -64,6 +64,39 @@ class ListHelper {
       
     }
 
+    addList = async payload => {
+      const type = {
+        open: TYPE.createUpdateData_Open,
+        close: TYPE.createUpdateData_Close
+      }
+      var data = getBody(payload, type, SERVICE.addList);
+      console.log('data~~~~',data);
+      return await SuperFetch.post('/', data)
+          .then(resp=>resp.text())
+          .then((response)=>{
+            console.log('response', response);
+            return this.handleListResponse(response);
+          });
+    }
+
+    handleListResponse = response => {
+      var parser = new DOMParser()
+      var doc = parser.parseFromString(response, 'text/xml').documentElement
+      var error = doc.getElementsByTagName("Error");
+      
+      if (error.length==0) {
+        alert('success')
+        return {
+          success: 'success'
+        }
+      } else {
+        alert('wrong Input')
+        return {
+          error: 'Wrong Input'
+        }
+      }
+    }
+
 }
 
 export default new ListHelper()

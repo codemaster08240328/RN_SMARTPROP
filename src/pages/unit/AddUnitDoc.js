@@ -25,10 +25,17 @@ class AddUnitDoc extends Component {
        msg: '',
        Record_ID:'',
        XX_Lov_Doc_Category_ID:'',
-       BinaryData:''
+       BinaryData:'',
+       test:'0.00'
     }
     this.fileUpload = this.fileUpload.bind(this)
     this.addRequest = this.addRequest.bind(this)
+    this.click = this.click.bind(this)
+  }
+
+  click(msg){
+    
+
   }
   
   componentDidMount() {
@@ -106,7 +113,7 @@ class AddUnitDoc extends Component {
               items={this.props.docCateg}
               onValueChange={(value) => {
                   this.setState({
-                      XX_Lov_Doc_Category_ID: this.props.docCateg[value].XX_Lov_Doc_Category_ID,
+                      XX_Lov_Doc_Category_ID: this.props.docCateg[value] ? this.props.docCateg[value].XX_Lov_Doc_Category_ID : "",
                   });
               }}
               style={{...styles}}
@@ -127,7 +134,7 @@ class AddUnitDoc extends Component {
               <TextInput
                 placeholder = "upload file"
                 style = {[styles.inputIOS, {flex: 6, borderBottomRightRadius: 0, borderTopRightRadius: 0, borderRightWidth: 0}]}
-                onChangeText={(result)=>this.setState({result})}
+                // onChangeText={(result)=>this.setState({result})}
               />
               <TouchableOpacity 
                 onPress={this.fileUpload}
@@ -140,7 +147,8 @@ class AddUnitDoc extends Component {
                   borderBottomRightRadius:4
                 }}
               >
-                <Text style={{color: 'white'}}>Upload</Text></TouchableOpacity>
+                <Text style={{color: 'white'}}>Upload</Text>
+              </TouchableOpacity>
             </View>
             
           </View>
@@ -153,6 +161,7 @@ class AddUnitDoc extends Component {
               onChangeText={(msg)=>this.setState({msg})}
             />
           </View>
+
           <View style = {{marginTop: 10}}>
             <TouchableOpacity
               style = {{backgroundColor: color.dark_primary, justifyContent: 'center', alignItems: 'center', paddingVertical: 13, borderRadius: 5}}

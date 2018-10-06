@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity, FlatList } from 'react-native'
 import { Icon } from 'react-native-elements'
+import PDFView from 'react-native-view-pdf'
 import { connect } from 'react-redux'
 import { color, constants } from '../../settings/appconfig';
 import MenuView from '../menu'
@@ -22,6 +23,7 @@ import {
 
 
 
+
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 
@@ -40,6 +42,7 @@ class UnitView extends Component{
         this.unitClick = this.unitClick.bind(this)
         this.fileUpload = this.fileUpload.bind(this)
         this.dotBtnPress = this.dotBtnPress.bind(this)
+        this.viewDoc = this.viewDoc.bind(this)
     }
 
     dotBtnPress(value, item){
@@ -130,9 +133,13 @@ class UnitView extends Component{
                                 <Icon type="entypo" name="add-to-list" color="#EB6F6F" size={15}/>
                                 <Text style={{color: '#EB6F6F', marginLeft:10}}>ADD NEW UNIT DOCUMENT</Text>
                             </MenuOption>
-                            <MenuOption value="addUnitDoc" style={{flex:1,flexDirection:'row', borderBottomWidth:1,borderColor:'#727272',padding:10, borderRightWidth:1, borderLeftWidth:1}}>
+                            <MenuOption value="unitLedger" style={{flex:1,flexDirection:'row', borderBottomWidth:1,borderColor:'#727272',padding:10, borderRightWidth:1, borderLeftWidth:1}}>
                                 <Icon type="entypo" name="add-to-list" color="#EB6F6F" size={15}/>
                                 <Text style={{color: '#EB6F6F', marginLeft:10}}>VIEW LEDGER</Text>
+                            </MenuOption>
+                            <MenuOption value="addListing" style={{flex:1,flexDirection:'row', borderBottomWidth:1,borderColor:'#727272',padding:10, borderRightWidth:1, borderLeftWidth:1}}>
+                                <Icon type="entypo" name="add-to-list" color="#EB6F6F" size={15}/>
+                                <Text style={{color: '#EB6F6F', marginLeft:10}}>ADD NEW LISTING</Text>
                             </MenuOption>
                         </MenuOptions>
                     </Menu>
@@ -147,6 +154,10 @@ class UnitView extends Component{
             </TouchableOpacity>
         )
         
+    }
+
+    viewDoc(){
+        this.props.navigation.navigate('viewdoc');
     }
 
     
@@ -167,7 +178,7 @@ class UnitView extends Component{
             }}>
                 <View style = {{flexDirection:"row", justifyContent:'space-between', height:'60%'}}>
                     <Text style={{fontSize:15}}>Title : {item.Title}</Text>
-                    <TouchableOpacity onPress = {this.fileUpload}>
+                    <TouchableOpacity onPress = {this.viewDoc}>
                         <Icon
                             size = {20}
                             type = 'entypo'

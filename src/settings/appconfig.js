@@ -9,7 +9,8 @@ const constants = {
     createdBy: "1000920",
     orgId: '0',
     tableId: '1000015',
-    AD_Org_ID: '1000003'
+    AD_Org_ID: '1000003',
+    Ledger_Org_ID: '1000044'
 }
 
 export {

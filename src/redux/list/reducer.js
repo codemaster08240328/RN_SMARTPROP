@@ -1,6 +1,6 @@
 import actions from "./action"
 import Immutable from 'seamless-immutable';
-const initState = Immutable({success:null, list:[], message:null, loading:null})
+const initState = Immutable({success: null, list: [], message: null, loading: null, addmessage: null})
 export function listReducer(state = initState, action={}) {
   switch (action.type) {
     case actions.LIST_REQUEST: 
@@ -25,6 +25,27 @@ export function listReducer(state = initState, action={}) {
           success:false,
           message:action.payload,
           loading:false,
+      }
+    
+    case actions.ADD_LIST:
+      return {
+        ...state,
+        loading: true,
+        addmessage: null
+      }
+    case actions.ADD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        addmessage: "success",
+        addsuccess: true
+      }
+    case actions.ADD_FAIL:
+      return {
+        ...state,
+        loading: false,
+        addsuccess: false,
+        addmessage:action.payload
       }
     default:
       return state

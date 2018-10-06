@@ -1,11 +1,11 @@
 import {REQUEST} from '../settings/general-setting';
 export function getBody(param, type, service){
     data_row = "<_0:DataRow>";
-    for(var key in param){
+    for(let key in param){
         data_row += "<_0:field column='" + key + "'><_0:val>" + param[key] + "</_0:val></_0:field>";
     }
     data_row += "</_0:DataRow>";
-    var data = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:_0=\"http://idempiere.org/ADInterface/1_0\">" + 
+    const data = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:_0=\"http://idempiere.org/ADInterface/1_0\">" + 
                     "<soapenv:Header/>" + 
                     "<soapenv:Body>" + 
                         type.open + 
@@ -19,6 +19,29 @@ export function getBody(param, type, service){
                                 REQUEST.login + 
                             "</_0:ModelCRUDRequest>" + 
                         type.close + 
+                    "</soapenv:Body>" +
+                "</soapenv:Envelope>";
+    return data
+}
+
+export function getBodyForRunProcess(param){
+    param_values = '<_0:ParamValues>';
+    for(let key in param){
+        param_values += "<_0:field column='" + key + "'><_0:val>" + param[key] + "</_0:val></_0:field>";
+    }
+    param_values += '</_0:ParamValues>'
+    const data = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:_0=\"http://idempiere.org/ADInterface/1_0\">" + 
+                    "<soapenv:Header/>" + 
+                    "<soapenv:Body>" +
+                        "<_0:runProcess>" +
+                            "<_0:ModelRunProcessRequest>" +
+                                '<_0:ModelRunProcess AD_Process_ID="1000010">' +
+                                    "<_0:serviceType>" + 'Partner_LedgDet-SC' + "</_0:serviceType>" + 
+                                    param_values +
+                                "</_0:ModelRunProcess>" +
+                                REQUEST.login +
+                            "</_0:ModelRunProcessRequest>" +
+                        "</_0:runProcess>" +
                     "</soapenv:Body>" +
                 "</soapenv:Envelope>";
     return data

@@ -10,9 +10,8 @@ const TYPE = {
     createUpdateData_Close:"</_0:createUpdateData>",
     queryData_Open:"<_0:queryData>",
     queryDate_Close:"</_0:queryData>",
-
-
 }
+
 const SERVICE = {
     createUpdateUser : "wp-createUpdateUser",
     queryUser : "wp-queryUsers",
@@ -29,8 +28,8 @@ const SERVICE = {
     lovActivity: 'lov-Activity',
     updateRequest: 'createUpdateRequest',
     lovDocCate: 'lov-DocCategory',
-    createUpdateDoc: 'createUpdateDoc'
-    
+    createUpdateDoc: 'createUpdateDoc',
+    addList: 'createUpdateListing'    
 }
 
 const VERIFY = {

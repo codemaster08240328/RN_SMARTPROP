@@ -167,12 +167,12 @@ class ReqHelper {
       var doc = parser.parseFromString(response, 'text/xml').documentElement
       var listNode = doc.getElementsByTagName("outField");
       var error = doc.getElementsByTagName("Error");
-      console.log('asdfa',error)
+      
       if(error.length>0) {
-        return {error: "failed"}
-        
+        alert('failed')
+        return {error: "failed"}  
       }else{
-        console.log('error!~~~~~')
+        alert('success')
         return {success: "success"}
       }
       

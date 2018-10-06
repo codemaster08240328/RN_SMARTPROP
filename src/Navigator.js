@@ -13,6 +13,9 @@ import ListView from './pages/list';
 import { List } from 'react-native-elements';
 import AddRequest from './pages/request/AddRequest';
 import AddUnitDoc from './pages/unit/AddUnitDoc';
+import UnitLedger from './pages/unit/UnitLedger';
+import AddNewList from './pages/list/AddNewList';
+import ViewDoc  from './pages/unit/ViewDoc';
 
 const RootNavigator = createStackNavigator({
     Login:{
@@ -83,6 +86,24 @@ const RootNavigator = createStackNavigator({
     },
     addUnitDoc: {
       screen: AddUnitDoc,
+      navigationOptions: {
+        header: null
+      }
+    },
+    unitLedger: {
+      screen: UnitLedger,
+      navigationOptions: {
+        header: null
+      }
+    },
+    addListing: {
+      screen: AddNewList,
+      navigationOptions: {
+        header: null
+      }
+    },
+    viewdoc: {
+      screen: ViewDoc,
       navigationOptions: {
         header: null
       }

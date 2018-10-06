@@ -42,6 +42,26 @@ export function* lovunitRequest(){
   })
 }
 
+export function* lovunitID(){
+  yield takeEvery(actions.LOV_PROP_GET, function*({payload}){
+    console.log("param~~~~`",payload)
+    const param = Object.assign({}, payload);
+    console.log("param~~~~`",param)
+    const result = yield call(UnitHelper.getLovUnit, param)
+    if(result && !result.error){
+      yield put({
+        type: actions.PROP_GET_SUCCESS,
+        payload: result
+      })
+    }else{
+      yield put({
+        type: actions.PROP_GET_ERROR,
+        payload: result.error
+      })
+    }
+  })
+}
+
 export function* getUnitDoc(){
   yield takeEvery(actions.UNIT_DOC_REQUEST, function*({payload}){
     const  param  = Object.assign({},payload);
@@ -94,8 +114,31 @@ export function* addUnitDoc(){
   })
 }
 
+export function* getUnitLedger(){
+  yield takeEvery(actions.GET_UNIT_LEDGER, function*({payload}){
+    const result = yield call(UnitHelper.getUnitLedger, payload)
+    if(result && !result.error){
+      yield put({
+        type: actions.UNIT_LEDGER_SUCCESS,
+        payload: result
+      })
+    }else{
+      yield put({
+        type: actions.UNIT_LEDGER_ERROR,
+        payload: result.error
+      })
+    }
+  })
+}
+
 export default function* unitSaga() {
   yield all([
-    fork(unitRequest), fork(lovunitRequest), fork(getUnitDoc), fork(getDocCategory), fork(addUnitDoc)
+    fork(unitRequest), 
+    fork(lovunitRequest), 
+    fork(getUnitDoc), 
+    fork(getDocCategory), 
+    fork(addUnitDoc), 
+    fork(getUnitLedger),
+    fork(lovunitID)
   ])
 }

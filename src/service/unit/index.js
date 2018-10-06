@@ -1,6 +1,6 @@
 import { REQUEST, TYPE, SERVICE } from '../../settings/general-setting'
 import SuperFetch from '../superfetch';
-import { getBody } from '../../helpers/utility';
+import { getBody, getBodyForRunProcess } from '../../helpers/utility';
 import { constants } from '../../settings/appconfig';
 
 var DOMParser = require('xmldom').DOMParser
@@ -58,6 +58,7 @@ class UnitHelper {
         XX_Unit_ID : param.Record_ID
       }
       var data = getBody(pass, type, SERVICE.loveUnit);
+      console.log('data', data)
       return await SuperFetch.post("/", data)
             .then(resp=>resp.text())
             .then((response)=>{
@@ -107,7 +108,6 @@ class UnitHelper {
     var doc = parser.parseFromString(response, 'text/xml').documentElement
     var listNode = doc.getElementsByTagName("DataRow");
     var count = doc.getElementsByTagName("RowCount")[0].firstChild.data;
-    console.log(count)
     if(count!=0){
       let result=[];
       for (i=0;i<listNode.length;i++){
@@ -118,11 +118,11 @@ class UnitHelper {
         const msg = val[3].getElementsByTagName('val');
         const category = val[4].getElementsByTagName('val');
         result[i] = {
-          'XX_Doc_ID' : docID[0].firstChild.data,
-          'Title' : title[0].firstChild.data,
-          'BinaryData' : BinaryData[0].firstChild.data,
-          'TextMsg' : msg[0].firstChild.data,
-          'XX_Lov_Doc_Category_ID' : category[0].firstChild.data
+          'XX_Doc_ID' : docID[0].firstChild ? docID[0].firstChild.data : '',
+          'Title' : title[0].firstChild ? title[0].firstChild.data : '',
+          'BinaryData' : BinaryData[0].firstChild ? BinaryData[0].firstChild.data : '',
+          'TextMsg' : msg[0].firstChild ? msg[0].firstChild.data : '',
+          'XX_Lov_Doc_Category_ID' : category[0].firstChild ? category[0].firstChild.data : ''
         };
       }
       console.log(result);
@@ -191,8 +191,30 @@ class UnitHelper {
             console.log('response',response);
             alert('success');
             return {result:'success'}
-            // return this.handleDocCategory(response);
         });
+  }
+
+  getUnitLedger = async param => {
+    var data = getBodyForRunProcess(param);
+    console.log('data~~~~~~~',data);
+
+    return await SuperFetch.post("/", data)
+        .then(resp=>resp.text())
+        .then((response)=>{
+            console.log('response',response);
+            return this.handleUnitLedger(response);
+        });
+  }
+
+  handleUnitLedger = (response) => {
+    var parser = new DOMParser()
+    var doc = parser.parseFromString(response, 'text/xml').documentElement
+    var listNode = doc.getElementsByTagName("Data");
+    const content = listNode[0].firstChild.data;
+    console.log('content', content)
+    return {
+      pdfContent: content
+    }
   }
 
 

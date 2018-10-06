@@ -12,6 +12,12 @@ const actions = {
   ADD_UNIT_DOC: 'ADD_UNIT_DOC',
   ADD_DOC_SUCCESS: 'ADD_DOC_SUCCESS',
   ADD_DOC_ERROR: 'ADD_DOC_ERROR',
+  GET_UNIT_LEDGER: 'GET_UNIT_LEDGER',
+  UNIT_LEDGER_SUCCESS: 'UNIT_LEDGER_SUCCESS',
+  UNIT_LEDGER_ERROR: 'UNIT_LEDGER_ERROR',
+  LOV_PROP_GET: 'LOV_PROP_GET',
+  PROP_GET_SUCCESS: 'PROP_GET_SUCCESS',
+  PROP_GET_ERROR: 'PROP_GET_ERROR',
   getUnit: payload => ({
     type: actions.UNIT_REQUEST,
     payload
@@ -26,6 +32,14 @@ const actions = {
   }),
   addUnitDoc: payload => ({
     type: actions.ADD_UNIT_DOC,
+    payload
+  }),
+  getUnitLedger: payload => ({
+    type: actions.GET_UNIT_LEDGER,
+    payload
+  }),
+  getPropID: payload => ({
+    type: actions.LOV_PROP_GET,
     payload
   })
 
