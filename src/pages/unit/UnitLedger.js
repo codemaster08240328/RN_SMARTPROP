@@ -71,8 +71,8 @@ class UnitLedger extends Component {
     const data = {
       AD_Org_ID: constants.Ledger_Org_ID,
       C_Activity_ID: this.props.navigation.getParam('C_Activity_ID'),
-      XX_Unit_ID: "1000074",// this.props.navigation.getParam('Record_ID'),
-      C_BPartner_ID: "1000872"// this.props.user.C_BPartner
+      XX_Unit_ID: this.props.navigation.getParam('Record_ID'),// "1000074",// 
+      C_BPartner_ID: this.props.user.C_BPartner// "1000872"//
     }
     this.props.dispatch(actions.getUnitLedger(data));
   }
